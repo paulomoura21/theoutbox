@@ -1,0 +1,17 @@
+/* css/css-style.css */
+
+/* Core */
+@import url('css-variables.css');
+@import url('css-base.css');
+@import url('css-layout.css');
+
+/* Components */
+@import url('components/css-nav.css');
+@import url('components/css-buttons.css');
+@import url('components/css-modals.css');
+@import url('components/css-cards.css');
+@import url('components/css-toast.css');
+
+/* Pages */
+@import url('pages/css-home.css');
+@import url('pages/css-catalog.css');

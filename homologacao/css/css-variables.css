@@ -1,0 +1,25 @@
+:root {
+    /* Paleta de Cores */
+    --color-bg: #111111;
+    --color-dark-gray: #1a1a1a;
+    --color-medium-gray: #333333;
+    --color-light-gray: #888888;
+    --color-white: #FFFFFF;
+    --color-neon: #ccff00;
+    --border-color: rgba(255, 255, 255, 0.15);
+
+    /* Tipografia */
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-text: 'Inter', sans-serif;
+
+    /* Tamanhos */
+    --text-hero: 12vw;
+    --text-h1: 7vw;
+    --text-body: 1rem;
+    --text-small: 0.75rem;
+
+    /* Espaçamentos */
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+}

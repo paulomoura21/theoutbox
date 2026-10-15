@@ -1,0 +1,54 @@
+/* --- CABEÇALHO SUPERIOR --- */
+.top-nav { height: 50px; display: flex; border-bottom: 1px solid var(--border-color); flex-shrink: 0; z-index: 100; }
+.nav-btn { width: 50px; display: flex; justify-content: center; align-items: center; border-right: 1px solid var(--border-color); transition: all 0.4s ease; }
+.nav-btn:hover { background-color: rgba(255, 255, 255, 0.08); }
+.nav-wrapper { position: relative; display: flex; border-left: 1px solid var(--border-color); }
+.expandable-btn { width: 60px; display: flex; justify-content: center; align-items: center; color: var(--color-white); text-decoration: none; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.btn-text { max-width: 0; opacity: 0; overflow: hidden; white-space: nowrap; color: var(--color-white); font-family: var(--font-heading); font-weight: bold; font-size: 12px; letter-spacing: 1px; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.search-input { width: 0; opacity: 0; border: none; border-bottom: 1px solid transparent; background: transparent; color: var(--color-white); font-family: var(--font-heading); font-weight: bold; font-size: 12px; letter-spacing: 1px; outline: none; padding: 0; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); text-transform: uppercase; }
+.search-input::placeholder { color: rgba(255, 255, 255, 0.4); }
+
+.nav-wrapper:hover .expandable-btn { width: 140px; background-color: rgba(255, 255, 255, 0.08); }
+.nav-wrapper:hover .btn-text { max-width: 90px; opacity: 1; margin-left: 10px; }
+.nav-wrapper.search-wrapper:hover .expandable-btn { width: 220px; }
+.nav-wrapper.search-wrapper:hover .search-input { width: 140px; opacity: 1; margin-left: 10px; padding-bottom: 2px; }
+.search-input:focus { border-bottom: 1px solid var(--color-neon); }
+
+.nav-logo { flex: 1; display: flex; align-items: center; gap: 12px; padding: 0 var(--space-md); }
+.nav-logo a { color: var(--color-white); text-decoration: none; font-family: var(--font-heading); font-weight: 700; letter-spacing: 4px; font-size: 1.2rem; transition: color 0.4s ease; }
+.logo-cube { color: var(--color-neon); transition: transform 0.4s ease, color 0.4s ease; }
+.nav-logo:hover .logo-cube { color: #FF0000; transform: scale(1.15); }
+
+/* --- SUB-NAVEGAÇÃO --- */
+.sub-nav { display: flex; height: 40px; border-bottom: 1px solid var(--border-color); background-color: var(--color-bg); z-index: 90; position: relative; }
+.sub-nav-wrapper { flex: 1; position: relative; display: flex; border-right: 1px solid var(--border-color); }
+.sub-nav-wrapper:last-child { border-right: none; }
+.sub-nav-item { width: 100%; height: 100%; padding: 0 var(--space-sm); display: flex; align-items: center; justify-content: center; text-align: center; color: var(--color-light-gray); text-decoration: none; font-family: var(--font-heading); font-size: 10px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; transition: all 0.4s ease; white-space: nowrap; }
+.sub-nav-wrapper:hover .sub-nav-item { background-color: rgba(255, 255, 255, 0.08); color: var(--color-white); }
+.sub-nav-item.highlight-neon { color: var(--color-neon); }
+.sub-nav-wrapper:hover .sub-nav-item.highlight-neon { background-color: var(--color-neon); color: #000; }
+
+.sub-nav-dropdown { position: absolute; top: 100%; left: -1px; width: calc(100% + 2px); background-color: var(--color-bg); border: 1px solid var(--border-color); border-top: none; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transform: translateY(-5px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0px 15px 30px rgba(0,0,0,0.8); }
+.sub-nav-wrapper:hover .sub-nav-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+.sub-nav-dropdown a { display: flex; justify-content: center; align-items: center; padding: 15px var(--space-sm); color: var(--color-light-gray); text-decoration: none; font-family: var(--font-heading); font-size: 10px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid var(--border-color); transition: all 0.4s ease; }
+.sub-nav-dropdown a:last-child { border-bottom: none; }
+.sub-nav-dropdown a:hover { background-color: rgba(255, 255, 255, 0.08); color: var(--color-white); border-left: 4px solid var(--color-neon); }
+.sub-nav-dropdown.dropdown-2-cols { display: grid; grid-template-columns: 1fr 1fr; min-width: 450px; left: 50%; transform: translateX(-50%) translateY(-5px); }
+.sub-nav-wrapper:hover .sub-nav-dropdown.dropdown-2-cols { transform: translateX(-50%) translateY(0); }
+.sub-nav-dropdown.dropdown-2-cols a { border-right: 1px solid var(--border-color); }
+.sub-nav-dropdown.dropdown-2-cols a.span-all { grid-column: span 2; border-right: none; border-bottom: none; background-color: rgba(255, 255, 255, 0.02); }
+.sub-nav-wrapper:first-child .sub-nav-dropdown.dropdown-2-cols { left: 0; transform: translateY(-5px); }
+.sub-nav-wrapper:first-child:hover .sub-nav-dropdown.dropdown-2-cols { transform: translateY(0); }
+
+/* OVERLAY MENU */
+.menu-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.4s ease; }
+.menu-overlay.open { opacity: 1; visibility: visible; }
+.side-menu { position: fixed; top: 0; left: -400px; width: 350px; height: 100vh; background-color: var(--color-bg); border-right: 1px solid var(--border-color); z-index: 1001; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; }
+.side-menu.open { left: 0; }
+.side-menu-header { height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; border-bottom: 1px solid var(--border-color); }
+.side-menu-header h2 { color: var(--color-neon); font-family: var(--font-heading); font-size: 14px; letter-spacing: 2px; margin: 0; }
+.side-menu-links { display: flex; flex-direction: column; overflow-y: auto; }
+.side-menu-links a { height: 40px; display: flex; align-items: center; padding: 0 24px; border-bottom: 1px solid var(--border-color); color: var(--color-white); text-decoration: none; font-family: var(--font-heading); font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: all 0.4s ease; }
+.side-menu-links a:hover { color: var(--color-neon); padding-left: 32px; background: rgba(255,255,255,0.05); }
+#closeMenuBtn, .closePanelBtn { background: none; border: none; color: #fff; font-size: 2rem; transition: all 0.4s ease; }
+#closeMenuBtn:hover, .closePanelBtn:hover { color: var(--color-neon); transform: rotate(90deg); }

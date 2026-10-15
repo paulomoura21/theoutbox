@@ -1,0 +1,20 @@
+.btn-square { width: 50px; height: 50px; background-color: var(--color-neon); display: flex; justify-content: center; align-items: center; border: none; color: #000; transition: all 0.4s ease; }
+.btn-square:hover { background-color: var(--color-white); transform: scale(1.08); }
+.btn-neon-large { background-color: var(--color-neon); color: #000; border: none; padding: 15px 30px; font-weight: bold; font-size: 1rem; display: flex; align-items: center; gap: 10px; transition: all 0.4s ease; }
+.btn-neon-large:hover { background-color: var(--color-white); transform: translateY(-2px); }
+
+.btn-social { position: relative; width: 100%; height: 46px; background: transparent; border: 1px solid var(--border-color); color: var(--color-white); display: flex; align-items: center; justify-content: center; gap: 12px; font-family: var(--font-heading); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: all 0.4s ease; }
+.btn-social:hover { background-color: rgba(255, 255, 255, 0.08); border-color: var(--color-white); }
+.panel-action-btn { width: 100%; padding: 15px; margin-top: 15px; background-color: var(--color-neon); color: #000; border: none; font-family: var(--font-heading); font-weight: 900; letter-spacing: 1px; text-transform: uppercase; transition: all 0.4s ease; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.panel-action-btn:hover { background-color: var(--color-white); }
+
+.size-btn { width: 42px; height: 42px; background: transparent; border: 1px solid var(--border-color); color: var(--color-white); font-family: var(--font-heading); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
+.size-btn:hover, .size-btn.active { background-color: var(--color-neon); color: #000; border-color: var(--color-neon); }
+
+.filter-btn { background: #181818; border: 1px solid var(--border-color); color: var(--color-light-gray); padding: 6px 14px; font-family: var(--font-heading); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+.filter-btn:hover { border-color: var(--color-white); color: var(--color-white); }
+.filter-btn.active { background-color: var(--color-neon); color: #000; border-color: var(--color-neon); font-weight: 900; }
+
+.btn-cookie { padding: 10px 22px; font-family: var(--font-heading); font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; border: 1px solid var(--border-color); background: transparent; color: var(--color-white); }
+.btn-cookie-accept { background-color: var(--color-neon); color: #000; border-color: var(--color-neon); }
+.btn-cookie-accept:hover { background-color: var(--color-white); }

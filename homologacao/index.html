@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE OUT BOX | Uncontained Archive</title>
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ccff00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/><polyline points='3.27 6.96 12 12.01 20.73 6.96'/><line x1='12' y1='22.08' x2='12' y2='12'/></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS MODULARIZADO (Caminho Correto) -->
+    <link rel="stylesheet" href="css/css-style.css">
+
+    <!-- SUPABASE GLOBAL -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://thrsctsyrxmdkcxyqkvh.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_lkBP4c_a6-mRRfc00tmLkA_wFyxQZ6b';
+        window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+</head>
+<body>
+    <!-- OVERLAY E MENU LATERAL -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>CATEGORIAS</h2>
+            <button id="closeMenuBtn">&times;</button>
+        </div>
+        <nav class="side-menu-links">
+            <a href="produtos.html?category=CAMISAS">CAMISAS</a>
+            <a href="produtos.html?category=CAMISETAS">CAMISETAS</a>
+            <a href="produtos.html?category=MOLETONS">MOLETONS</a>
+            <a href="produtos.html?category=CASACOS">CASACOS</a>
+            <a href="produtos.html?category=JAQUETAS">JAQUETAS</a>
+            <a href="produtos.html?category=CALÇAS">CALÇAS</a>
+            <a href="produtos.html?category=BERMUDAS">BERMUDAS</a>
+            <a href="produtos.html?category=CALÇADOS">CALÇADOS</a>
+        </nav>
+    </div>
+
+    <!-- EFEITOS VISUAIS GLOBAIS -->
+    <div class="cursor"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- NAVEGAÇÃO SUPERIOR -->
+    <nav class="top-nav">
+        <a href="#" class="nav-btn" id="hamburgerBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </a>
+        
+        <div class="nav-logo">
+            <a href="index.html">THE OUT BOX</a>
+            <svg class="logo-cube" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+        </div>
+        
+        <div class="nav-wrapper search-wrapper">
+            <form id="searchForm" class="expandable-btn" style="margin: 0; padding: 0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="search-input" id="searchInput" placeholder="SEARCH..." autocomplete="off">
+            </form>
+        </div>
+
+        <div class="nav-wrapper">
+            <a href="#" class="expandable-btn" id="openLoginBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="btn-text" id="accountBtnText">ACCOUNT</span>
+            </a>
+        </div>
+
+        <div class="nav-wrapper">
+            <a href="#" class="expandable-btn" id="openCartBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="btn-text" id="cartBtnText">CART (0)</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ESTRUTURA PRINCIPAL -->
+    <div class="main-layout">
+        <!-- SIDEBAR ESQUERDA -->
+        <aside class="sidebar">
+            <div class="sidebar-text">
+                <span>MARCA BRASILEIRA //</span>
+            </div>
+            <div class="sidebar-copy">©2026</div>
+        </aside>
+
+        <div class="content-wrapper">
+            <!-- SUB-NAVEGAÇÃO DE MARCAS/CATEGORIAS -->
+            <div class="sub-nav">
+                <div class="sub-nav-wrapper">
+                    <a href="produtos.html?group=THE%20OUT" class="sub-nav-item">MARCAS THE OUT</a>
+                    <div class="sub-nav-dropdown dropdown-2-cols">
+                        <a href="produtos.html?brand=BRAZZA">BRAZZA</a>
+                        <a href="produtos.html?brand=SAPO">SAPO</a>
+                        <a href="produtos.html?brand=NINEONE">NINEONE</a>
+                        <a href="produtos.html?brand=FERREIRA">FERREIRA</a>
+                        <a href="produtos.html?group=THE%20OUT" class="span-all">TODAS MARCAS THE OUT</a>
+                    </div>
+                </div>
+
+                <div class="sub-nav-wrapper">
+                    <a href="produtos.html?group=NACIONAIS" class="sub-nav-item">MARCAS NACIONAIS</a>
+                    <div class="sub-nav-dropdown dropdown-2-cols">
+                        <a href="produtos.html?brand=COG">COG</a>
+                        <a href="produtos.html?brand=SOMETIMES">SOMETIMES</a>
+                        <a href="produtos.html?brand=PIET">PIET</a>
+                        <a href="produtos.html?brand=CARDAPÊ">CARDAPÊ</a>
+                        <a href="produtos.html?brand=HIGH">HIGH</a>
+                        <a href="produtos.html?brand=ELO%20EM%20COMUM">ELO EM COMUM</a>
+                        <a href="produtos.html?brand=THE%20SANT%20MAFIA">THE SANT MAFIA</a>
+                        <a href="produtos.html?group=NACIONAIS" class="span-all">DEMAIS MARCAS NACIONAIS</a>
+                    </div>
+                </div>
+
+                <div class="sub-nav-wrapper">
+                    <a href="produtos.html?group=INTERNACIONAIS" class="sub-nav-item">MARCAS INTERNACIONAIS</a>
+                    <div class="sub-nav-dropdown dropdown-2-cols">
+                        <a href="produtos.html?brand=NIKE">NIKE</a>
+                        <a href="produtos.html?brand=ADIDAS">ADIDAS</a>
+                        <a href="produtos.html?brand=PUMA">PUMA</a>
+                        <a href="produtos.html?brand=REBOOK">REBOOK</a>
+                        <a href="produtos.html?brand=UMBRO">UMBRO</a>
+                        <a href="produtos.html?brand=GUCCI">GUCCI</a>
+                        <a href="produtos.html?brand=ARMANI">ARMANI</a>
+                        <a href="produtos.html?group=INTERNACIONAIS" class="span-all">DEMAIS MARCAS INTERNACIONAIS</a>
+                    </div>
+                </div>
+
+                <div class="sub-nav-wrapper">
+                    <a href="produtos.html?sale=true" class="sub-nav-item">SALE!</a>
+                    <div class="sub-nav-dropdown">
+                        <a href="produtos.html?sale=true">VER PROMOÇÕES</a>
+                    </div>
+                </div>
+
+                <div class="sub-nav-wrapper">
+                    <a href="produtos.html" class="sub-nav-item highlight-neon">VER TODOS PRODUTOS</a>
+                    <div class="sub-nav-dropdown">
+                        <a href="produtos.html">IR PARA PAINEL GERAL</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTEÚDO SCROLLÁVEL -->
+            <main class="content-scroll">
+                <!-- SESSÃO HERO -->
+                <section class="hero-split">
+                    <div class="hero-image">
+                        <img src="\assets\photos\tela_inicial_001.png" alt="Modelo">
+                        <div class="img-overlay-text">DROP 001 / BRUTALISMO / SÃO PAULO</div>
+                    </div>
+                    <div class="hero-content">
+                        <div class="tags-header">
+                            <span>UNCONTAINED ARCHIVE</span>
+                            <span>2026</span>
+                        </div>
+                        <div class="giant-title reveal-text">
+                            <span>THE</span>
+                            <span>OUT</span>
+                            <span class="text-neon">BOX!</span>
+                        </div>
+                        <div class="desc-block reveal-text">
+                            <p>Moda contemporânea e curadoria selecionada. Peças que ocupam espaço, criam forma e desafiam o previsível.</p>
+                            <button class="btn-square" onclick="window.location.href='produtos.html'">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SESSÃO BRAND MATRIX -->
+                <section class="section-padding">
+                    <div class="neon-label">002 / BRAND MATRIX</div>
+                    <h2 class="h1-title reveal-text">IDENTIDADES<br>SEM MOLDURA.</h2>
+                    
+                    <div class="carousel reveal-text">
+                        <div class="carousel-card" onclick="window.location.href='produtos.html?brand=SAPO'">
+                            <img src="https://images.unsplash.com/photo-1492288991661-058aa541ff43?q=80&w=1974&auto=format&fit=crop" alt="Sapo">
+                            <div class="card-overlay">
+                                <h3>SAPO!</h3>
+                                <p class="text-small">STREETWEAR / OVERSIZED</p>
+                            </div>
+                        </div>
+                        <div class="carousel-card" onclick="window.location.href='produtos.html?brand=NINEONE'">
+                            <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?q=80&w=1974&auto=format&fit=crop" alt="Nineone">
+                            <div class="card-overlay">
+                                <h3>NINEONE</h3>
+                                <p class="text-small">FOOTWEAR / ACCESSORIES</p>
+                            </div>
+                        </div>
+                        <div class="carousel-card" onclick="window.location.href='produtos.html?brand=BRAZZA'">
+                            <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=2069&auto=format&fit=crop" alt="Brazza">
+                            <div class="card-overlay">
+                                <h3>BRAZZA</h3>
+                                <p class="text-small">SPORTWEAR / SPORTLIFE</p>
+                            </div>
+                        </div>
+                        <div class="carousel-card" onclick="window.location.href='produtos.html?brand=FERREIRA'">
+                            <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?q=80&w=1974&auto=format&fit=crop" alt="Ferreira">
+                            <div class="card-overlay">
+                                <h3>FERREIRA</h3>
+                                <p class="text-small">GRIFF / LUXO / ALFAIATARIA</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- DESTAQUE PRODUTO -->
+                <section class="product-split">
+                    <div class="product-image">
+                        <span class="badge-neon">NOVO / 001</span>
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1780&auto=format&fit=crop" alt="Jaqueta">
+                    </div>
+                    <div class="product-info">
+                        <div class="tags-header mb-4">
+                            <span>SPECIMEN VIEW</span>
+                            <span>NOMAD/01</span>
+                        </div>
+                        <div class="giant-title reveal-text" style="font-size: 8vw;">
+                            <span>SHELL</span>
+                            <span>01</span>
+                        </div>
+                        <p class="mt-8 mb-8 reveal-text" style="line-height: 1.6;">Jaqueta shell oversized construída para atravessar a cidade. Volume arquitetônico, proteção técnica e modelagem independente.</p>
+                        
+                        <div class="price-action reveal-text">
+                            <span class="price">R$ 1.290</span>
+                            <button class="btn-neon-large" onclick="window.location.href='produtos.html?search=SHELL'">
+                                EXAMINAR 
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TEXTO MANIFESTO -->
+                <section class="section-padding">
+                    <div class="neon-label">003 / NOSSO CRITÉRIO</div>
+                    <h2 class="h1-title reveal-text">
+                        <span class="text-white">NÃO SEGUIMOS<br>TENDÊNCIAS.</span><br>
+                        <span class="text-gray-filled">ARQUIVAMOS<br>MOVIMENTOS.</span>
+                    </h2>
+                    
+                    <div class="grid-3 reveal-text">
+                        <p>Seleção independente de marcas que tratam roupa como estrutura.</p>
+                        <p>Materiais, construção e origem avaliados peça por peça.</p>
+                        <p>Volumes limitados. Nenhum excesso, nenhuma repetição vazia.</p>
+                    </div>
+                </section>
+
+                <!-- FOOTER -->
+                <footer class="footer-neon">
+                    <div class="neon-label">ENTRE NO ARQUIVO / SEM RUÍDO</div>
+                    <h2 class="h1-title reveal-text" style="font-size: 10vw;">SAIA DA CAIXA<br>ANTES DE TODOS.</h2>
+                    
+                    <div class="newsletter-section reveal-text">
+                        <div class="news-text">
+                            <h3>INSCREVA-SE</h3>
+                            <p>FIQUE POR DENTRO E RECEBA -10% OFF NA PRIMEIRA COMPRA</p>
+                        </div>
+                        <div class="news-form">
+                            <input type="text" placeholder="Seu nome">
+                            <input type="email" placeholder="Digite seu e-mail">
+                            <button type="button">CADASTRAR</button>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-bottom-bars">
+                        <div class="footer-nav">
+                            <a href="#">SOBRE NÓS</a>
+                            <a href="#">NOSSAS REDES</a>
+                            <a href="#">CONTATO</a>
+                            <a href="#">SUPORTE</a>
+                        </div>
+                        
+                        <div class="footer-copyright">
+                            <span>THE OUT BOX! | Grupo Moura © 2026</span>
+                            <span class="copyright-sep">//</span>
+                            <span class="footer-legal-links">
+                                <a href="#">TERMOS DE SERVIÇO</a> E <a href="#">POLÍTICA DE PRIVACIDADE</a>.
+                            </span>
+                        </div>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <!-- INCLUDES DOS PAINÉIS LATERAIS & MODAIS -->
+    <!-- PAINEL DE LOGIN -->
+    <div class="side-panel right-panel" id="loginPanel">
+        <div class="side-menu-header">
+            <h2 id="panelTitle">ACCOUNT // PAINEL</h2>
+            <button class="closePanelBtn">&times;</button>
+        </div>
+
+        <div class="panel-content" id="userUnloggedState">
+            <p class="panel-sub" id="panelSub">ACESSE SUA CONTA MBMS.</p>
+            <p id="authMessage" style="font-size: 11px; color: var(--color-neon); display: none; margin-bottom: 10px;"></p>
+
+            <div class="social-login-group">
+                <button type="button" class="btn-social" id="googleLoginBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+                    </svg>
+                    <span>ENTRAR COM GOOGLE</span>
+                </button>
+            </div>
+
+            <div class="panel-divider">
+                <span>OU CONTINUAR COM E-MAIL</span>
+            </div>
+
+            <form class="panel-form" id="authForm">
+                <input type="text" id="authNomeCompleto" placeholder="NOME COMPLETO" class="panel-input" style="display: none;">
+                <input type="text" id="authUsername" placeholder="NOME DE USUÁRIO" class="panel-input" style="display: none;">
+                <input type="email" id="authEmail" placeholder="E-MAIL" class="panel-input" required>
+                <input type="password" id="authSenha" placeholder="SENHA" class="panel-input" required>
+                
+                <button type="submit" id="authSubmitBtn" class="btn-neon panel-action-btn">ENTRAR COM E-MAIL</button>
+            </form>
+
+            <div class="panel-signup">
+                <span id="toggleAuthText">NÃO TEM UMA CONTA?</span>
+                <a href="#" class="link-neon" id="toggleAuthModeBtn">CADASTRE-SE</a>
+            </div>
+
+            <div class="panel-legal">
+                <a href="#">TERMOS DE SERVIÇO</a> E <a href="#">POLÍTICA DE PRIVACIDADE</a>.
+            </div>
+        </div>
+
+        <div class="panel-content" id="userLoggedInState" style="display: none;">
+            <div class="neon-label" style="margin-bottom: 0.5rem;">ACCOUNT // PAINEL</div>
+            <h2 class="user-panel-greeting">OLÁ,<br><span id="userPanelName">USUÁRIO</span></h2>
+            <p class="user-panel-email" id="userPanelEmail">email@teste.com</p>
+            <p class="user-panel-badge">MEMBRO ADMIN · THE OUT BOX</p>
+
+            <button type="button" class="btn-neon panel-action-btn" id="btnGerenciarConta">
+                <span>GERENCIAR CONTA</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+            <button type="button" class="btn-social" id="btnSairConta" style="margin-top: 10px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                <span>SAIR DA CONTA</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- PAINEL CARRINHO -->
+    <div class="side-panel right-panel" id="cartPanel">
+        <div class="side-menu-header">
+            <h2>CARRINHO DE COMPRAS</h2>
+            <button class="closePanelBtn">&times;</button>
+        </div>
+        <div class="panel-content" id="cartPanelContent">
+            <p style="color: var(--color-light-gray); text-transform: uppercase;">Ainda sem artefatos.</p>
+        </div>
+    </div>
+
+    <!-- MODAL DASHBOARD DA CONTA -->
+    <div class="dash-modal" id="accountDashboardModal">
+        <div class="dash-header-bar">
+            <button class="btn-back" id="btnVoltarInicio">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span>VOLTAR AO INÍCIO</span>
+            </button>
+        </div>
+
+        <div class="dash-container">
+            <div class="dash-title-section">
+                <span class="neon-label">PAINEL DA CONTA</span>
+                <h1 class="dash-title">OLÁ, <span id="userDashFirstName">USUÁRIO</span>.</h1>
+            </div>
+
+            <div class="dash-grid">
+                <div class="dash-card">
+                    <div class="dash-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <div>
+                        <div class="dash-card-label">PERFIL</div>
+                        <div class="dash-card-value" id="userDashFullName">Nome Completo</div>
+                        <div class="dash-card-sub" id="userDashEmail">email@teste.com</div>
+                    </div>
+                    <div class="dash-card-label" style="color: var(--color-neon); margin-top: auto;">PLANO · ADMIN</div>
+                </div>
+
+                <div class="dash-card">
+                    <div class="dash-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    </div>
+                    <div>
+                        <div class="dash-card-label">MINHA BOX</div>
+                        <div class="dash-card-value">0 PEÇAS</div>
+                        <div class="dash-card-sub">R$ 0</div>
+                    </div>
+                    <a href="produtos.html" class="dash-card-link">
+                        <span>ABRIR BOX</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <div class="dash-card">
+                    <div class="dash-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    </div>
+                    <div>
+                        <div class="dash-card-label">HISTÓRICO</div>
+                        <div class="dash-card-value">0 PEDIDOS</div>
+                        <div class="dash-card-sub">Acompanhe suas compras e rastreios.</div>
+                    </div>
+                    <a href="#" class="dash-card-link">
+                        <span>VER HISTÓRICO</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <div class="dash-card">
+                    <div class="dash-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div>
+                        <div class="dash-card-label">ENDEREÇOS</div>
+                        <div class="dash-card-value">LOCAIS DE ENVIO</div>
+                        <div class="dash-card-sub">Gerencie seus endereços para entrega.</div>
+                    </div>
+                    <a href="#" class="dash-card-link">
+                        <span>GERENCIAR ENDEREÇOS</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <div class="dash-card">
+                    <div class="dash-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <div>
+                        <div class="dash-card-label">SEGURANÇA</div>
+                        <div class="dash-card-value">SENHA & DADOS</div>
+                        <div class="dash-card-sub">Altere sua senha e dados cadastrais.</div>
+                    </div>
+                    <a href="#" class="dash-card-link">
+                        <span>CONFIGURAÇÕES</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <div class="dash-card">
+                    <div class="dash-card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div>
+                        <div class="dash-card-label">SUPORTE</div>
+                        <div class="dash-card-sub" style="margin-top: 5px;">Dúvidas sobre pedidos ou devoluções, fale conosco.</div>
+                    </div>
+                    <a href="mailto:outboxagenciaofc@gmail.com" class="dash-card-link" style="margin-top: auto;">
+                        <span>OUTBOXAGENCIAOFC@GMAIL.COM</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dash-footer-action">
+                <button type="button" class="btn-social" id="btnDashSairConta" style="width: auto; padding: 0 30px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    <span>SAIR DA CONTA</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DETALHES DO PRODUTO -->
+    <div class="product-detail-modal" id="productDetailModal">
+        <div class="p-modal-header">
+            <button class="btn-back" id="btnCloseProductModal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <span>VOLTAR AO ARQUIVO</span>
+            </button>
+        </div>
+
+        <div class="p-detail-split">
+            <div class="p-detail-img">
+                <img src="" id="pModalImage" alt="Produto">
+            </div>
+
+            <div class="p-detail-info">
+                <span class="p-brand-tag" id="pModalBrand">BRAZZA / DROP 001</span>
+                <h1 class="p-title-giant" id="pModalTitle">SHELL 01</h1>
+
+                <div class="p-price-block">
+                    <span class="p-price-main" id="pModalPrice">R$ 1.290</span>
+                    <span class="p-price-parcels" id="pModalParcels">6x de R$ 215,00 sem juros</span>
+                </div>
+
+                <p style="font-size: 13px; color: #ccc; line-height: 1.5;">Peça selecionada do arquivo. Construção, forma e atitude com caimento projetado.</p>
+
+                <div>
+                    <div class="p-size-title">SELECIONE O TAMANHO</div>
+                    <div class="p-size-grid">
+                        <button class="size-btn" data-size="P">P</button>
+                        <button class="size-btn active" data-size="M">M</button>
+                        <button class="size-btn" data-size="G">G</button>
+                        <button class="size-btn" data-size="GG">GG</button>
+                        <button class="size-btn" data-size="XGG">XGG</button>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-neon panel-action-btn" id="btnAddToCartModal" style="height: 55px; font-size: 14px;">
+                    <span>ADD TO CART</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                </button>
+
+                <div class="p-specs-table">
+                    <div class="p-spec-row">
+                        <span class="p-spec-label">01 / MATERIAL</span>
+                        <span class="p-spec-val">Tecido 100% Algodão Premium</span>
+                    </div>
+                    <div class="p-spec-row">
+                        <span class="p-spec-label">02 / FORMA</span>
+                        <span class="p-spec-val">Caimento Boxy Projetado</span>
+                    </div>
+                    <div class="p-spec-row">
+                        <span class="p-spec-label">03 / CUIDADO</span>
+                        <span class="p-spec-val">Lavagem delicada a frio. Não usar alvejante.</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <span class="neon-label" style="font-size: 10px;">PROPORÇÃO</span>
+                    <p style="font-size: 12px; color: var(--color-light-gray); margin-top: 4px;">Modelo tem 1,76m de altura, pesa 75kg e veste tamanho M.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BANNER DE COOKIES -->
+    <div class="cookie-banner" id="cookieBanner">
+        <p class="cookie-text">Ao navegar por este site <strong>você aceita o uso de cookies</strong> para agilizar a sua experiência de compra.</p>
+        <div class="cookie-actions">
+            <button class="btn-cookie btn-cookie-accept" id="acceptCookiesBtn">ACEITAR</button>
+            <button class="btn-cookie btn-cookie-decline" id="declineCookiesBtn">RECUSAR</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS MODULARES (Caminhos Corretos) -->
+    <script src="js/js-cursor.js"></script>
+    <script type="module" src="js/js-app.js"></script>
+
+</body>
+</html>
